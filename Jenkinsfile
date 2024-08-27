@@ -4,31 +4,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the repository
                 checkout scm
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                // Install Node.js dependencies
-                sh 'npm install'
+                dir('app') { // Change 'app' to the correct directory
+                    sh 'npm install'
+                }
             }
         }
         
         stage('Run Tests') {
             steps {
-                // Run tests if any
-                sh 'npm test'
+                dir('app') { // Change 'app' to the correct directory
+                    sh 'npm test'
+                }
             }
         }
         
         stage('Run Application') {
             steps {
-                // Run the Node.js application
-                sh 'node app.js'
+                dir('app') { // Change 'app' to the correct directory
+                    sh 'node app.js'
+                }
             }
         }
     }
 }
-
