@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODE_ENV = 'production'
-        PORT = 5000 // Specify the port the server will run on
+        PORT = 3000 // Specify the port the server will run on
         SERVER_URL = "http://localhost:${PORT}"
     }
 
