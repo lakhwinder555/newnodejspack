@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Deploy the application by starting the Node.js server
-                sh 'nohup node app.js &'
+                sh 'nohup node hello.js &'
             }
         }
 
