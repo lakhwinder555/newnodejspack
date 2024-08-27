@@ -4,7 +4,7 @@ pipeline {
     environment {
         NODE_ENV = 'production'
         PORT = 3000 // Specify the port the server will run on
-        SERVER_URL = "http://localhost:${PORT}"
+        SERVER_URL = "127.0.0.1:${PORT}"
     }
 
     stages {
