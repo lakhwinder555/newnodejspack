@@ -2,68 +2,46 @@ pipeline {
     agent any
 
     environment {
-        NODE_ENV = 'production'
-        PORT = 3000 // Specify the port the server will run on
-        SERVER_URL = "127.0.0.1:${PORT}"
+        NODE_ENV = 'development'
+        HOSTNAME = '127.0.0.1'  // You can change this to your desired hostname
+        PORT = '3000'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the version control
-                git url: 'https://github.com/lakhwinder555/newnodejspack.git', branch: 'main'
+                // Checkout your source code from version control (e.g., Git)
+                checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Install Node.js dependencies
-                sh 'npm install'
+                script {
+                    // Ensure Node.js and npm are installed
+                    sh 'node -v'
+                    sh 'npm -v'
+
+                    // Install dependencies defined in package.json
+                    sh 'npm install'
+                }
             }
         }
 
-        stage('Run Tests') {
-            when {
-                expression { return fileExists('package.json') && sh(script: "npm run test -- --help > /dev/null 2>&1", returnStatus: true) == 0 }
-            }
+        stage('Run Script') {
             steps {
-                // Run tests if they are specified
-                sh 'npm test'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Any build steps if needed, for example, bundling your code.
-                sh 'npm run build || echo "No build script found, skipping build"'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Deploy the application by starting the Node.js server
-                sh 'nohup node hello.js &'
-            }
-        }
-
-        stage('Post-Deployment') {
-            steps {
-                // Print the server URL for easy access
-                echo "Application is running at ${env.SERVER_URL}"
+                script {
+                    // Run your Node.js script
+                    sh 'node your-script.js'  // Replace 'your-script.js' with the name of your script file
+                }
             }
         }
     }
 
     post {
         always {
-            // Clean up
-            sh 'rm -rf node_modules'
-        }
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed!'
+            // Clean up or perform any necessary post-build actions
+            echo 'Cleaning up...'
         }
     }
 }
