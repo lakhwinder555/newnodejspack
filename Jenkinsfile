@@ -1,23 +1,34 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building...'
+                // Checkout the code from the repository
+                checkout scm
             }
         }
-        stage('Test') {
+        
+        stage('Install Dependencies') {
             steps {
-                echo 'Testing...'
+                // Install Node.js dependencies
+                sh 'npm install'
             }
         }
-        stage('Deploy') {
-            when {
-                branch 'staging'
-            }
+        
+        stage('Run Tests') {
             steps {
-                echo 'Deploying to staging... 12345'
+                // Run tests if any
+                sh 'npm test'
+            }
+        }
+        
+        stage('Run Application') {
+            steps {
+                // Run the Node.js application
+                sh 'node app.js'
             }
         }
     }
 }
+
