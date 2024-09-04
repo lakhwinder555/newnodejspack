@@ -1,4 +1,4 @@
-const { createServer } = require('http'); // Import the http module
+const { createServer } = require('http');
 
 const hostname = '0.0.0.0';  // Bind to all interfaces
 const port = process.env.PORT || 3001;
