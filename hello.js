@@ -1,7 +1,7 @@
 const { createServer } = require('http'); // Import the http module
 
 const hostname = '0.0.0.0';  // Bind to all interfaces
-const port = process.env.PORT || 2001;
+const port = process.env.PORT || 3001;
 
 const server = createServer((req, res) => {
   res.statusCode = 200;
