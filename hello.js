@@ -1,6 +1,6 @@
 const { createServer } = require('http');
 
-const hostname = '0.0.0.0';  // Bind to all interfaces
+const hostname = '0.0.0.0';  
 const port = process.env.PORT || 3001;
 
 const server = createServer((req, res) => {
